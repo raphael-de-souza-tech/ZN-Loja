@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBackward, faForward } from '@fortawesome/free-solid-svg-icons'; 
 import { EffectCards, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -22,18 +24,14 @@ export function Banner() {
   ];
 
   return (
-    <div style={{ width: '100%', maxWidth: '360px', margin: '40px auto', position: 'relative' }}>
+    <div className="relative mx-auto my-20 w-full max-w-150 mr-55 ">
       <Swiper
-        // 1. Voltamos a incluir o módulo Navigation aqui
         modules={[EffectCards, Navigation, Pagination]}
-        
         effect={'cards'}
         grabCursor={true}
         shortSwipes={false}
         threshold={1}
         pagination={{ type: 'progressbar' }}
-        
-        // 2. Mapeamos as classes dos botões customizados que criamos abaixo
         navigation={{
           nextEl: '.btn-next-custom',
           prevEl: '.btn-prev-custom',
@@ -41,42 +39,31 @@ export function Banner() {
         }}
       >
         {banners.map((item) => (
-          <SwiperSlide key={item.id} style={{ borderRadius: '12px', overflow: 'hidden' }}>
+          <SwiperSlide key={item.id} className="overflow-hidden rounded-xl">
             <img 
               src={item.imageUrl} 
               alt={item.altText} 
-              style={{ width: '100%', height: '450px', objectFit: 'cover', display: 'block' }} 
+              className="block h-150 mt-10 w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
             />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* 3. Seus botões customizados com os ícones que você escolher */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
+      {/* Botões de navegação customizados com Tailwind CSS */}
+      <div className="-mt-30 flex justify-center gap-180 ">
         
         {/* Botão de Voltar */}
-        <button className="btn-prev-custom" style={buttonStyle}>
-          {/* Coloque seu ícone aqui. Exemplo com texto/caractere, mas pode ser um <svg> ou Lucide Icon */}
-          👈 Voltar
+        <button className="btn-prev-custom flex items-center gap-2 rounded-lg bg-neutral-200 px-5 py-2.5 text-base text-black transition-colors hover:bg-neutral-200 disabled:opacity-40">
+          <FontAwesomeIcon icon={faBackward} />
+          
         </button>
 
         {/* Botão de Avançar */}
-        <button className="btn-next-custom" style={buttonStyle}>
-          Avançar 👉
+        <button className="btn-next-custom flex items-center gap-2 rounded-lg bg-neutral-200 px-5 py-2.5 text-base text-black transition-colors hover:bg-neutral-200 disabled:opacity-40">
+          <FontAwesomeIcon icon={faForward} />
         </button>
         
       </div>
     </div>
   );
 }
-
-// Estilo simples para os botões (você pode estilizar via CSS/Tailwind se preferir)
-const buttonStyle: React.CSSProperties = {
-  padding: '10px 20px',
-  fontSize: '16px',
-  backgroundColor: '#333',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '8px',
-  cursor: 'pointer',
-};
